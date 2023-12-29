@@ -1,0 +1,13 @@
+
+SELECT
+    cp.part_number,
+    cp.manufacturer,
+    cp.price AS current_price,
+    ss.price AS sample_price,
+    CASE
+        WHEN cp.price <= ss.price THEN 'Current'
+        ELSE 'Sample'
+    END AS better_price
+FROM current_prices cp
+INNER JOIN sample_supplier ss
+    ON cp.part_number = ss.part_number AND cp.manufacturer = ss.manufacturer
